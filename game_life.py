@@ -1,10 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-# np.random.seed(200)
-# m = np.zeros((20,20))
-# random_ones = np.random.choice(m.size, 200, replace=False)
-# m.ravel()[random_ones] = 1
 
 def get_all_neighbor_index(m,location):
     rows, cols = m.shape
@@ -25,6 +21,25 @@ def get_neighbor_values(m,array):
 
     return sum(values)
 
+def check_if_edge(new_m):
+    mask = np.logical_or(
+        np.isin(element=m[:, m.shape[0] - 2], test_elements=1),
+        np.isin(element=m[m.shape[0] - 2, :], test_elements=1)
+    )
+
+    mask2 = np.logical_or(
+        np.isin(element=m[:,1],test_elements=1),
+        np.isin(element=m[1, :], test_elements=1)
+    )
+
+    if mask.any():
+        new_m = np.pad(m, pad_width=((0, 1), (0, 1)), mode='constant', constant_values=0)
+
+    if mask2.any():
+        new_m = np.pad(m, pad_width=((1, 0), (1, 0)), mode='constant', constant_values=0)
+
+    return new_m
+
 def get_new_generation(m):
     new_m = m.copy()
     for index, value in np.ndenumerate(m):
@@ -39,17 +54,26 @@ def get_new_generation(m):
                 new_m[(index)] = 0
             if values == 3 and status ==0:
                 new_m[(index)] = 1
+    new_m = check_if_edge(new_m)
     return new_m
 
 m = np.zeros((20,20))
 
-m[3,2] = 1
-m[4,3] = 1
-m[5,3] = 1
-m[5,2] = 1
-m[5,1] = 1
+m[15,2] = 1
+m[16,3] = 1
+m[17,3] = 1
+m[17,2] = 1
+m[17,1] = 1
+
+m[5, 7] = 1
+m[4, 8] = 1
+m[4, 9] = 1
+m[5, 9] = 1
+m[6, 9] = 1
 for i in range(100):
-    plt.imshow(m,cmap='gray_r')
-    plt.show()
-    time.sleep(0.12)
+    plt.clf()
+    plt.imshow(m, cmap='gray_r')
+    plt.gca().set_xlim([0, m.shape[1]])
+    plt.gca().set_ylim([m.shape[0], 0])
+    plt.pause(0.5)
     m = get_new_generation(m)
