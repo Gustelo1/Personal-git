@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>Title</title>
+
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #211f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+
+}
+.container {
+    position:absolute;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between table and button */
+}
+
+table {
+    position:relative;
+    border-collapse: collapse;
+    align-content: center;
+}
+button{
+    position:relative;
+    right: 50px;
+    top: 50px;
+    align-content: center;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.white-cell {
+    background-color: white;
+}
+
+.black-cell {
+    background-color: black;
+}
+
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="table">
+        {{ table | safe }}
+        </div>
+    <div class="button">
+        <form id="myForm" action="/" method="post">
+            <svg width="120" height="120" onclick="submitForm()" class="start-button">
+          **<a href="#" id="submitBtn">**
+            <circle cx="60"
+                    cy="60"
+                    r="55"
+                    stroke="white"
+                    stroke-width="5"
+                    fill="black" />
+
+            <text x="60"
+                  y="60"
+                  fill="#FFFFFF"
+                  text-anchor="middle"
+                  alignment-baseline="middle">
+              Start
+            </text>
+          **</a>**
+
+        </svg>
+    </form>
+    </div>
+
+</div>
+<script>
+function toggleCell(cell) {
+    const row = cell.getAttribute('data-row');
+    const col = cell.getAttribute('data-col');
+
+    // Toggle the value in the table cell
+    if (cell.classList.contains('white-cell')) {
+        cell.classList.remove('white-cell');
+        cell.classList.add('black-cell');
+
+    } else {
+        cell.classList.remove('black-cell');
+        cell.classList.add('white-cell');
+
+    }
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ row: row, col: col})
+    }).then(response => response.json())
+    .then(data => console.log('Cell updated', data))
+    .catch((error) => console.error('Error:', error));
+    }
+</script>
+</body>
+</html>

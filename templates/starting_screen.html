@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Game of Life</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #211f1f;
+}
+.header {
+  text-align: center;
+  background: #211f1f;
+  color: white;
+}
+.play-button {
+    cursor: pointer;
+}
+
+</style>
+
+    <script>
+        function submitForm() {
+            document.getElementById('myForm').submit();
+        }
+</script>
+
+
+</head>
+<body>
+<div class="header">
+    <h1>Game of Life</h1>
+    <p>Press play</p>
+
+
+    <form id="myForm" action="/" method="post">
+        <svg width="120" height="120" onclick="submitForm()" class="play-button">
+      **<a href="#" id="subitBtn">**
+        <circle cx="60"
+                cy="60"
+                r="55"
+                stroke="white"
+                stroke-width="5"
+                fill="black" />
+
+        <text x="60"
+              y="60"
+              fill="#FFFFFF"
+              text-anchor="middle"
+              alignment-baseline="middle">
+          Play
+        </text>
+      **</a>**
+
+        </svg>
+    </form>
+</div>
+</body>
+</html>
