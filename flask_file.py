@@ -8,8 +8,9 @@ def hello_world():
 
 @app.route('/', methods=['POST'])
 def play():
-    m_html = get_table()
 
+    print("Hello")
+    m_html = get_table()
 
     return render_template("play_template.html", table=m_html)
 

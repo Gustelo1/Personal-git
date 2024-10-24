@@ -28,11 +28,19 @@ table {
     border-collapse: collapse;
     align-content: center;
 }
-button{
-    position:relative;
-    right: 50px;
-    top: 50px;
-    align-content: center;
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
 }
 
 td {
@@ -57,32 +65,12 @@ td {
     <div class="table">
         {{ table | safe }}
         </div>
-    <div class="button">
-        <form id="myForm" action="/" method="post">
-            <svg width="120" height="120" onclick="submitForm()" class="start-button">
-          **<a href="#" id="submitBtn">**
-            <circle cx="60"
-                    cy="60"
-                    r="55"
-                    stroke="white"
-                    stroke-width="5"
-                    fill="black" />
-
-            <text x="60"
-                  y="60"
-                  fill="#FFFFFF"
-                  text-anchor="middle"
-                  alignment-baseline="middle">
-              Start
-            </text>
-          **</a>**
-
-        </svg>
+    <form class = "grid" action = "/" method = "POST">
+        <button type="submit">Start</button>
     </form>
-    </div>
-
 </div>
 <script>
+
 function toggleCell(cell) {
     const row = cell.getAttribute('data-row');
     const col = cell.getAttribute('data-col');
